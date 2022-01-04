@@ -23,22 +23,24 @@ def train(epochs, data):
     # Implement training loop here
     NN = MyAwesomeModel()
     criterion = nn.NLLLoss()
-    optimizer = optim.SGD(NN.parameters(), lr=0.003)
+    optimizer = optim.Adam(NN.parameters(), lr=3e-4)
     for e in range(epochs):
         running_loss = 0
         for images, labels in train_set:
             # Flatten MNIST images into a 784 long vector
             optimizer.zero_grad()
-            # TODO: Training pass
             output = NN(images)
             loss = criterion(output.squeeze(), labels.long())
             loss.backward()
             running_loss += loss.item()
             optimizer.step()
         else:
+            if e == epochs -1:
+                print(torch.exp(output).topk(1, dim=1))
+                print(labels)
             print(f"Training loss: {running_loss/len(train_set)}")
 
-    torch.save(NN.state_dict(), "models/checkpoint.pth")
+    torch.save(NN.state_dict(), "models/checkpoint1.pth")
 
 
 if __name__ == "__main__":
