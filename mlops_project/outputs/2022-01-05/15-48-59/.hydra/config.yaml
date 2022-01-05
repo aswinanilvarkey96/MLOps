@@ -1,0 +1,4 @@
+hyperparameters:
+  trainpath: /data/processed/train_loader.pth
+  checkpoint: /models/checkpoint3.pth
+  epochs: 20
