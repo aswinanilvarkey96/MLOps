@@ -1,6 +1,8 @@
 import torch
 import torch.nn.functional as F
-from torch import nn
+from torch import nn, optim
+
+
 
 
 class MyAwesomeModel(nn.Module):
@@ -12,6 +14,7 @@ class MyAwesomeModel(nn.Module):
         # Output layer, 10 units - one for each digit
         self.fc3 = nn.Linear(64, 32)
         self.fc4 = nn.Linear(32, 10)
+        
 
 
     def forward(self, x):
@@ -24,3 +27,5 @@ class MyAwesomeModel(nn.Module):
         x = F.log_softmax(self.fc4(x), dim=1)
 
         return x
+    
+    

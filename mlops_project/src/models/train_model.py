@@ -12,12 +12,15 @@ from src.models.model import MyAwesomeModel
 import hydra
 from hydra.utils import get_original_cwd
 
+import wandb
+
 import logging
 log = logging.getLogger(__name__)
 
 @hydra.main(config_path = '../../src/config/',config_name="trainconfig")
 
 def train(cfg):
+   # wandb.init()
     trainpath = cfg.hyperparameters.trainpath
     checkpoint = cfg.hyperparameters.checkpoint
     epochs = cfg.hyperparameters.epochs
@@ -41,11 +44,13 @@ def train(cfg):
             loss = criterion(output.squeeze(), labels.long())
             loss.backward()
             running_loss += loss.item()
+            wandb.log({"train_loss": running_loss})
             optimizer.step()
         else:
             log.info(f"Training loss: {running_loss/len(train_set)}")
 
     torch.save(NN.state_dict(),str(get_original_cwd()) + checkpoint)
+    #wandb.finish()
 
 
 if __name__ == "__main__":

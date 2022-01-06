@@ -21,13 +21,17 @@ def mnist():
     trainset = np.load("data/raw/corruptmnist/train_0.npz")
     images = Tensor(trainset["images"])  # transform to torch tensor
     labels = Tensor(trainset["labels"])
+    #labels = labels.type(torch.LongTensor)
+    #images = images.type(torch.LongTensor)
     my_dataset = TensorDataset(images, labels)
-    train = DataLoader(my_dataset, batch_size=64, shuffle=True)
+    train = DataLoader(my_dataset, batch_size=64, shuffle=True, num_workers=8)
     testset = np.load("data/raw/corruptmnist/test.npz")
     images = Tensor(testset["images"])  # transform to torch tensor
     labels = Tensor(testset["labels"])
+    #labels = labels.type(torch.LongTensor)
+    #images = images.type(torch.LongTensor)
     my_dataset = TensorDataset(images, labels)
-    test = DataLoader(my_dataset, batch_size=64, shuffle=True)
+    test = DataLoader(my_dataset, batch_size=64, shuffle=True, num_workers=8)
     torch.save(train, "data/processed/train_loader.pth")
     torch.save(test, "data/processed/test_loader.pth")
 
