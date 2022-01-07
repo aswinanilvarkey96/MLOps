@@ -8,7 +8,7 @@ os.chdir(str(cwd) + "/src/models/")
 ch = str(cwd) + "/src/models/"
 print(os.getcwd())
 os.chdir(str(cwd))
-from runner.worl.MLOps.MLOps.src.models.model import MyAwesomeModel
+from MLOps.src.models.model import MyAwesomeModel
 
 train_set = torch.load(str(cwd) + "/data/processed/train_loader.pth")
 data_train, label_train =  next(iter(train_set))    
