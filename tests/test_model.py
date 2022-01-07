@@ -2,6 +2,9 @@
 import torch
 from torch import nn, optim
 import numpy as np
+import os
+cwd = os.getcwd()
+print('#############',cwd)
 from src.models.model import MyAwesomeModel
 
 train_set = torch.load("data/processed/train_loader.pth")
