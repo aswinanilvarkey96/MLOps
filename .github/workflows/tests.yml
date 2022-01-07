@@ -43,4 +43,4 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
-        pytest -v mlops_project/tests/
+        pytest -v /home/runner/work/MLOps/MLOps/tests/
