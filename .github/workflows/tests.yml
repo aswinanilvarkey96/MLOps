@@ -14,121 +14,25 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Determine npm cache directory
-      id: npm-cache
-      run: |
-        echo "::set-output name=dir::$(npm config get cache)"
-    - name: Restore npm cache
+    - name: Cache node modules
       uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
       with:
-        path: ${{ steps.npm-cache.outputs.dir }}
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-node-
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements_tests.txt
-    - name: Test with pytest
-      run: |
-        pip install pytest
-        pytest -v tests/
-
-  # End to end save and restore
-  test-save:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-      fail-fast: false
-    runs-on: ${{ matrix.os }}
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Generate files in working directory
-      shell: bash
-      run: __tests__/create-cache-files.sh ${{ runner.os }} test-cache
-    - name: Generate files outside working directory
-      shell: bash
-      run: __tests__/create-cache-files.sh ${{ runner.os }} ~/test-cache
-    - name: Save cache
-      uses: ./
-      with:
-        key: test-${{ runner.os }}-${{ github.run_id }}
-        path: |
-          test-cache
-          ~/test-cache
-  test-restore:
-    needs: test-save
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-      fail-fast: false
-    runs-on: ${{ matrix.os }}
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Restore cache
-      uses: ./
-      with:
-        key: test-${{ runner.os }}-${{ github.run_id }}
-        path: |
-          test-cache
-          ~/test-cache
-    - name: Verify cache files in working directory
-      shell: bash
-      run: __tests__/verify-cache-files.sh ${{ runner.os }} test-cache
-    - name: Verify cache files outside working directory
-      shell: bash
-      run: __tests__/verify-cache-files.sh ${{ runner.os }} ~/test-cache
-
-  # End to end with proxy
-  test-proxy-save:
-    runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
-      options: --dns 127.0.0.1
-    services:
-      squid-proxy:
-        image: datadog/squid:latest
-        ports:
-          - 3128:3128
-    env:
-      https_proxy: http://squid-proxy:3128
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Generate files
-      run: __tests__/create-cache-files.sh proxy test-cache
-    - name: Save cache
-      uses: ./
-      with:
-        key: test-proxy-${{ github.run_id }}
-        path: test-cache
-  test-proxy-restore:
-    needs: test-proxy-save
-    runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
-      options: --dns 127.0.0.1
-    services:
-      squid-proxy:
-        image: datadog/squid:latest
-        ports:
-          - 3128:3128
-    env:
-      https_proxy: http://squid-proxy:3128
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Restore cache
-      uses: ./
-      with:
-        key: test-proxy-${{ github.run_id }}
-        path: test-cache
-    - name: Verify cache
-      run: __tests__/verify-cache-files.sh proxy test-cache
+    - name: npm install
+    - name: Build
+      run: npm build
+    - name: Test
+      run: npm test
