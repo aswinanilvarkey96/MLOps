@@ -6,7 +6,7 @@ import os
 cwd = os.getcwd()
 
 print('#############',cwd)
-files = [f for f in os.listdir('.') if os.path.isfile(f)]
+files = [f for f in os.listdir('.') ]
 for f in files:
     print(f)
 
