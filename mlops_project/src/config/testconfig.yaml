@@ -1,0 +1,4 @@
+#config.yaml
+hyperparameters:
+  testpath: "/data/processed/test_loader.pth"
+  checkpoint  : "/models/checkpoint3.pth"

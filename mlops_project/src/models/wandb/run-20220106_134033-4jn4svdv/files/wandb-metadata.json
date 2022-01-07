@@ -1,0 +1,25 @@
+{
+    "os": "Linux-5.10.16.3-microsoft-standard-WSL2-x86_64-with-debian-bullseye-sid",
+    "python": "3.7.0",
+    "heartbeatAt": "2022-01-06T12:40:34.464246",
+    "startedAt": "2022-01-06T12:40:33.098577",
+    "docker": null,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [
+        "--learning_rate=0.007670347580221796",
+        "--optimizer=adam"
+    ],
+    "state": "running",
+    "program": "train_model_arg.py",
+    "codePath": "mlops_project/src/models/train_model_arg.py",
+    "git": {
+        "remote": "git@github.com:aswinanilvarkey96/MLOps.git",
+        "commit": "4b3735b918bad7bb4da62eea80573bee716552b7"
+    },
+    "email": "aswinanilvarkey@gmail.com",
+    "root": "/mnt/e/Repo/MLOps",
+    "host": "LAPTOP-DLCARQNG",
+    "username": "aswinanilvarkey",
+    "executable": "/home/aswinanilvarkey/anaconda3/envs/MLOPS/bin/python"
+}

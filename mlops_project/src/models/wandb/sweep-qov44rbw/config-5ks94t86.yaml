@@ -1,0 +1,6 @@
+wandb_version: 1
+
+learning_rate:
+  value: 0.005066918235755792
+optimizer:
+  value: sgd
