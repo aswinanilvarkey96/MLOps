@@ -22,13 +22,11 @@ jobs:
           path: ~\AppData\Local\pip\Cache
     steps:
     - name: Checkout
-      uses: actions/checkout@v2         
+      uses: actions/checkout@v2   
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Verify 3.8
-      run: python __tests__/verify-python.py 3.8        
     - uses: actions/cache@v1
       id: cache
       with:
@@ -42,4 +40,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements_tests.txt
-      
+    - name: Test with pytest
+      run: |
+        pip install pytest
+        pytest -v tests/
