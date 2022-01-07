@@ -43,4 +43,4 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest
-        pytest -v 
+        pytest -v mlops_project/tests/
