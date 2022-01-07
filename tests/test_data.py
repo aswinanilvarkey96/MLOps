@@ -1,8 +1,10 @@
 
+import os
+
+import numpy as np
 import torch
 from torch import nn, optim
-import numpy as np
-import os
+
 cwd = os.getcwd()
 
 train_set = torch.load(str(cwd) + "/data/processed/train_loader.pth")

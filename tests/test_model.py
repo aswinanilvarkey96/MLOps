@@ -1,8 +1,10 @@
 
+import os
+
+import numpy as np
 import torch
 from torch import nn, optim
-import numpy as np
-import os
+
 cwd = os.getcwd()
 os.chdir(str(cwd) + "/src/models/")
 ch = str(cwd) + "/src/models/"

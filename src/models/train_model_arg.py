@@ -1,22 +1,18 @@
 import argparse
+import logging
 import sys
 
+import click
+import hydra
 import numpy as np
 import torch
+from hydra.utils import get_original_cwd
 #from model import MyAwesomeModel
 from torch import nn, optim
-import click
 
+import wandb
 from src.models.model import MyAwesomeModel
 
-import hydra
-from hydra.utils import get_original_cwd
-
-import wandb
-import click
-import logging
-import argparse
-import wandb
 log = logging.getLogger(__name__)
 
 #@hydra.main(config_path = '../../src/config/',config_name="trainconfig")

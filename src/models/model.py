@@ -3,8 +3,6 @@ import torch.nn.functional as F
 from torch import nn, optim
 
 
-
-
 class MyAwesomeModel(nn.Module):
     def __init__(self):
         super().__init__()

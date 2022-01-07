@@ -1,24 +1,27 @@
 import argparse
+import logging
+import pdb
 import sys
 
+import hydra
+import tkinter
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from hydra.utils import get_original_cwd
 from model import MyAwesomeModel
 from torch import nn, optim
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 
+import os
+print(os.getcwd())
 from src.models.model import MyAwesomeModel
 
-import hydra
-from hydra.utils import get_original_cwd
-
-import pdb
-
-import logging
 log = logging.getLogger(__name__)
 @hydra.main(config_path = '../../src/config/' , config_name="testconfig")
 
 def predict(cfg):
+    
     testpath = cfg.hyperparameters.testpath
     checkpoint = cfg.hyperparameters.checkpoint
     
@@ -27,6 +30,7 @@ def predict(cfg):
     testloader = torch.load(str(get_original_cwd()) +testpath)
     model.eval()
     with torch.no_grad():
+        preds, target = [], []
         cnt = 0
         for images, labels in testloader:  
             for idx,img in enumerate(images):    
@@ -37,7 +41,22 @@ def predict(cfg):
                 log.info(f"Label: {labels[idx]}, Prediction: {top_class.item()}")
                 if labels[idx]==top_class:
                     cnt+=1
+                preds.append(log_ps.argmax(dim=-1))
+            target.append(labels.detach())
             break
+        target = torch.cat(target, dim=0)
+        preds = torch.cat(preds, dim=0)
+        report = classification_report(target, preds)
+        with open("classification_report.txt", 'w') as outfile:
+            outfile.write(report)
+        confmat = confusion_matrix(target, preds)
+        disp = ConfusionMatrixDisplay( confmat )
+        plt.savefig('confusion_matrix.png')
+        plt.show()
+        
+        plt.figure()
+        plt.plot(range(1,10))
+        plt.show()
         
        # pdb.set_trace()
         log.info(f'Accuracy: {cnt/idx*100:.2f}%')

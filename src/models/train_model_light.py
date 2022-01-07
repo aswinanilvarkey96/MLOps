@@ -1,22 +1,19 @@
 import argparse
+import logging
 import sys
 
+import click
+import hydra
 import numpy as np
 import torch
+from hydra.utils import get_original_cwd
+from pytorch_lightning import LightningModule, Trainer
 #from model import MyAwesomeModel
 from torch import nn, optim
-import click
-from pytorch_lightning import LightningModule
-from pytorch_lightning import Trainer
-
-from src.models.model_light import MyAwesomeModel
-
-import hydra
-from hydra.utils import get_original_cwd
 
 import wandb
+from src.models.model_light import MyAwesomeModel
 
-import logging
 log = logging.getLogger(__name__)
 
 @hydra.main(config_path = '../../src/config/',config_name="trainconfig")
