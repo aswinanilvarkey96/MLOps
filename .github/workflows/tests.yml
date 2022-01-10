@@ -47,8 +47,6 @@ jobs:
         date > file
         dvc add file
         dvc push --remote myremote
-      env:
-        GDRIVE_CREDENTIALS_DATA:${{ secrets.CLOUD }}
     - name: Test with pytest  
       run: |
         pip install pytest
