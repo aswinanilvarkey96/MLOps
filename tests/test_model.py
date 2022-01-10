@@ -6,9 +6,9 @@ import torch
 from torch import nn, optim
 import sys
 sys.path
-sys.path.append('/home/runner/work/MLOps/MLOps/src/models/')
+sys.path.append(os.getcwd())
 print(sys.path)
-from model import MyAwesomeModel
+from src.models.model import MyAwesomeModel
 
 cwd = os.getcwd()
 
