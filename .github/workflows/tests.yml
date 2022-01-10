@@ -26,14 +26,7 @@ jobs:
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
-    - uses: actions/cache@v1
-      id: cache
-      with:
-        path:  ${{ matrix.path }}
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-      
+        python-version: 3.8    
     - name: Install
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
