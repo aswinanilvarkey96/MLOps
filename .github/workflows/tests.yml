@@ -35,9 +35,13 @@ jobs:
         pip install -r requirements_tests.txt
     - name: Setup DVC
       uses: iterative/setup-dvc@v1
+    - name:
+      run: |
+        echo "$dvc remote list"
+        shell: bash
     - name: DVC
-      run: |                
-        dvc checkout data
+      run: |       
+        dvc pull
     - name: Test with pytest  
       run: |
         pip install pytest
