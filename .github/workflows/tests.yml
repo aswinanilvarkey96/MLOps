@@ -42,7 +42,7 @@ jobs:
         pip install -r requirements_tests.txt
       - uses: iterative/setup-dvc@v1
     - name: DVC
-      - run: |
+      run: |
           git init
           dvc init
           
@@ -53,9 +53,9 @@ jobs:
           date > file
           dvc add file
           dvc push --remote myremote
-        env:
-          GDRIVE_CREDENTIALS_DATA:${{ secrets.Cloud }}
-          MAPPED: ${{ secrets.AWS_HOST}}
+      env:
+        GDRIVE_CREDENTIALS_DATA:${{ secrets.Cloud }}
+        MAPPED: ${{ secrets.AWS_HOST}}
     - name: Test with pytest  
       run: |
         pip install pytest
