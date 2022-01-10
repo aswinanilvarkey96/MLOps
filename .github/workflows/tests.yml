@@ -22,7 +22,7 @@ jobs:
           path: ~\AppData\Local\pip\Cache
     steps:
     - name: Checkout
-      uses: actions/checkout@v2   
+      uses: actions/checkout@v2  
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -41,6 +41,7 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements_tests.txt
     - name: DVC Setup 
+      uses: iterative/setup-dvc@v1
       run: |
         git init
         dvc init
