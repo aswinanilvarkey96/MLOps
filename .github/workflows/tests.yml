@@ -43,7 +43,7 @@ jobs:
     - name: Set up dvc
       uses: iterative/setup-dvc@v1
     - name: DVC Setup   
-      run: dvc pull
+      run: dvc pull -f
       env:
         GDRIVE_CREDENTIALS_DATA: ${{ secrets.ORIGINAL_SERVICE_ACCOUNT_JSON }}
     - name: Test with pytest  
