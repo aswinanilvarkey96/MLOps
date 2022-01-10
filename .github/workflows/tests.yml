@@ -40,12 +40,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements_tests.txt
-    - name: Set up dvc
-      uses: iterative/setup-dvc@v1
-    - name: DVC Setup   
-      run: dvc pull -f
-      env:
-        GDRIVE_CREDENTIALS_DATA: ${{ secrets.gdrive }}
+      - uses: iterative/setup-dvc@v1
+    - name: DVC
+      - run: |
+          git init
+          dvc init
+          
+          dvc remote add myremote gdrive://root
+          dvc remote modify myremote --local gdrive_use_service_account true
+          dvc remote modify myremote --local gdrive_service_account_json_file_path ${{ secrets.Cloud }}
+          
+          date > file
+          dvc add file
+          dvc push --remote myremote
+        env:
+          GDRIVE_CREDENTIALS_DATA:${{ secrets.Cloud }}
     - name: Test with pytest  
       run: |
         pip install pytest
