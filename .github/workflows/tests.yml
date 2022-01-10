@@ -45,7 +45,7 @@ jobs:
     - name: DVC Setup   
       run: dvc pull -f
       env:
-        GDRIVE_CREDENTIALS_DATA: ${{ secrets.ORIGINAL_SERVICE_ACCOUNT_JSON }}
+        GDRIVE_CREDENTIALS_DATA: ${{ secrets.gdrive }}
     - name: Test with pytest  
       run: |
         pip install pytest
