@@ -37,12 +37,7 @@ jobs:
       uses: iterative/setup-dvc@v1
     - name: DVC
       run: |
-        dvc remote add myremote1 gdrive://1D3FHAeSNqik7e6k1sApBXbJVszd5icGT
-        dvc remote modify myremote1 --local gdrive_use_service_account true
-        dvc remote modify myremote1 --local gdrive_service_account_json_file_path ${{ secrets.Cloud}}
-    - name: DVC
-      run: |        
-        dvc remote default myremote1
+        dvc remote default myremote
         dvc checkout data
     - name: Test with pytest  
       run: |
