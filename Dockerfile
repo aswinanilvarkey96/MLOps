@@ -5,9 +5,9 @@ RUN apt update && \
 apt install --no-install-recommends -y build-essential gcc && \
 apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN pip install dvc 
+RUN pip install dvc[gs]
 COPY .dvc/ .dvc/
-RUN dvc init
+RUN dvc init --no-scm
 RUN dvc pull
 
 COPY requirements.txt requirements.txt
