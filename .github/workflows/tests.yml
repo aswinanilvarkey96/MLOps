@@ -36,7 +36,7 @@ jobs:
     - name: Setup DVC
       uses: actions/checkout@v2
     - name: Decrypt large secret
-      run: sudo ./.github/scripts/decrypt_secret.sh
+      run: ./.github/scripts/decrypt_secret.sh
       env:
         SECRET: ${{ secrets.SECRET }}
       # This command is just an example to show your secret being printed
