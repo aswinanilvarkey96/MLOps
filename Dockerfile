@@ -7,7 +7,8 @@ apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN pip install dvc[gs]
 COPY .dvc/ .dvc/
-RUN dvc pull --no-scm
+COPY data.dvc/ data.dvc/
+RUN dvc pull
 
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
@@ -15,6 +16,7 @@ COPY src/ src/
 COPY data/ data/
 COPY models/ models/
 COPY reports/ reports/
+COPY tests/ tests/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
