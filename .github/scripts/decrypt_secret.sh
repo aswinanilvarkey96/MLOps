@@ -3,5 +3,4 @@
 # --batch to prevent interactive command
 # --yes to assume "yes" for questionsss
 pwd
-gpg --quiet --batch --yes --decrypt --passphrase="$SECRET" \
---output application_default_credentials.json inlaid-goods-337908-288913a7ea1f.json.gpg
+gpg --quiet --batch --yes --decrypt --passphrase="$SECRET" --output secret.json secret.json.gpg
