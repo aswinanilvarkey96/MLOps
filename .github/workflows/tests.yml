@@ -43,7 +43,7 @@ jobs:
       # Ensure you remove any print statements of your secrets. GitHub does
       # not hide secrets that use this workaround.ss
     - name: Setup DVC
-      uses: actions/checkout@v2
+      uses: iterative/setup-dvc@v1
     - name: DVC
       run: |
         dvc init --no-scm -f
