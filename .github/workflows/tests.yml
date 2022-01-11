@@ -37,8 +37,7 @@ jobs:
       uses: iterative/setup-dvc@v1
     - name: DVC
       run: |
-        dvc remote default myremote
-        dvc checkout data
+        dvc pull
     - name: Test with pytest  
       run: |
         pip install pytest
