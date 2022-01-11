@@ -4,4 +4,4 @@
 # --yes to assume "yes" for questionsss
 pwd
 gpg --quiet --batch --yes --decrypt --passphrase="$SECRET" \
---output application_default_credentials.json application_default_credentials.json.gpg
+--output application_default_credentials.json inlaid-goods-337908-288913a7ea1f.json.gpg
