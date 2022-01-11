@@ -7,8 +7,7 @@ apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN pip install dvc[gs]
 COPY .dvc/ .dvc/
-RUN dvc init --no-scm
-RUN dvc pull
+RUN dvc pull --no-scm
 
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
