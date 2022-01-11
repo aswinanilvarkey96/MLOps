@@ -7,6 +7,7 @@ apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN pip install dvc[gs]
 COPY .dvc/ .dvc/
+COPY .git/ .git/
 COPY data.dvc/ data.dvc/
 RUN dvc pull
 
