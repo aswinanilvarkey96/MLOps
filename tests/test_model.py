@@ -7,7 +7,6 @@ from torch import nn, optim
 import sys
 sys.path
 sys.path.append(os.getcwd())
-print(sys.path)
 from src.models.model import MyAwesomeModel
 def test_model():
 
