@@ -1,5 +1,15 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/inlaid-goods-337908/testing', '.']
+  args: ['build',
+         '--build-arg',
+         'YOUR_API_KEY=$$SECRET_KEY',
+         '-t',
+         'gcr.io/linear-rig-337909/testing', 
+         '.']
+  secretEnv: ['SECRET_KEY']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/inlaid-goods-337908/testing']
+  args: ['push', 'gcr.io/linear-rig-337909/testing']
+availableSecrets:
+  secretManager:
+  - versionName: projects/61561717862/secrets/SECRET_KEY/versions/1
+    env: 'SECRET_KEY'
