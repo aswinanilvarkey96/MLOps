@@ -24,22 +24,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
      rm -rf /var/lib/apt/lists/*
 
 # RUN ln -s /usr/bin/python3.8 /usr/bin/python3
+
 COPY ./requirements.txt /.
 COPY ./setup.py /.
-COPY ./README.md /.
+
 
 # Installs pip.
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
-    pip install -e . python-dotenv \
-    src \
-    setuptools \
-    wandb && \
+    pip install -r requirements-docker.txt --no-cache-dir && \
     #pip install setuptools && \
     rm get-pip.py
 
 WORKDIR /root
 
+# Installs pytorch and torchvision manually as they do not want to cooporate.
+RUN pip download torch==1.10.1
+RUN pip install torch*.whl 
+RUN pip install torchvision==0.11.2
+
+# Install PyG.
+# RUN CPATH=/usr/local/cuda/include:$CPATH \
+#  && LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH \
+#  && DYLD_LIBRARY_PATH=/usr/local/cuda/lib:$DYLD_LIBRARY_PATH
+
+# Installs google cloud sdk, this is mostly for using gsutil to export model.
 RUN wget -nv \
     https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz && \
     mkdir /root/tools && \
@@ -59,19 +68,19 @@ ENV PATH $PATH:/root/tools/google-cloud-sdk/bin -
 # Make sure gsutil will use the default service account
 RUN echo '[GoogleCompute]\nservice_account = default' > /etc/boto.cfg
 
-RUN pip install "python-dotenv[cli]"
-
 # Copies the trainer code 
 RUN mkdir /root/project
 WORKDIR /root/project
-
-# Copies relevant files
+COPY src/ /root/project/src/
+COPY models/ /root/project/models
 COPY entrypoint.sh /root/project/entrypoint.sh
+COPY .dvc/ /root/project/.dvc/
+COPY data.dvc /root/project/data.dvc
+COPY .git/ /root/project/.git/
 
 ENV PYTHONPATH "${PYTHONPATH}:/root/project"
-
+ 
 ARG YOUR_API_KEY=local
 ENV YOUR_API_KEY ${YOUR_API_KEY}
-
 # Sets up the entry point to invoke the trainer.
 ENTRYPOINT ["sh", "entrypoint.sh"]
