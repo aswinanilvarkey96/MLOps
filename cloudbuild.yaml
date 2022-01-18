@@ -11,5 +11,5 @@ steps:
   args: ['push', 'gcr.io/linear-rig-337909/testing']
 availableSecrets:
   secretManager:
-  - versionName: projects/61561717862/secrets/SECRET_KEY
+  - versionName: projects/61561717862/secrets/YOUR_API_KEY/versions/latest
     env: 'SECRET_KEY'
