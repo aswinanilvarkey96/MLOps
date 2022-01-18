@@ -13,3 +13,4 @@ availableSecrets:
   secretManager:
   - versionName: projects/61561717862/secrets/SECRET_KEY/versions/latest
     env: 'SECRET_KEY'
+timeout: 1200s
