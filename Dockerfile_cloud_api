@@ -1,0 +1,30 @@
+FROM pytorch/torchserve:0.3.0-cpu
+
+#RUN apt update && \
+#apt install --no-install-recommends -y build-essential gcc && \
+#apt clean && rm -rf /var/lib/apt/lists/*
+
+#RUN printf "\nservice_envelope=json" >> /config.properties
+
+COPY requirements.txt requirements.txt
+COPY setup.py setup.py
+COPY src/ src/
+COPY data/ data/
+COPY models/ models/
+COPY reports/ reports/
+COPY tests/ tests/
+
+
+RUN torch-model-archiver \
+    --model-name=my_fancy_model2 \
+    --version=1.0 \
+    --serialized-file=models/deployable_model.pt \
+    --export-path=models/model_store \
+    --extra-files=models/index_to_name.json \
+    --handler=image_classifier
+
+CMD ["torchserve", \
+     "--start", \
+     "--ncs", \
+     "--model-store models/model_store", \
+     "--models my_fancy_model=my_fancy_model.mar"]
