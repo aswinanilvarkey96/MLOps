@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # RUN ln -s /usr/bin/python3.8 /usr/bin/python3
 COPY ./requirements.txt /.
 COPY ./setup.py /.
+COPY ./README.md /.
 
 # Installs pip.
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
