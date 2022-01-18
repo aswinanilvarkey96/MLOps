@@ -29,7 +29,7 @@ def train():
     args = parser.parse_args()
 
     trainpath= "../../data/processed/train_loader.pth"
-    checkpoint  = "../..//models/checkpoint3.pth"
+    checkpoint  = "../../models/checkpoint3.pth"
     epochs = 5
     lr = 3e-4
 
