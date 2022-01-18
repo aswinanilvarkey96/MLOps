@@ -42,6 +42,8 @@ WORKDIR /root
 RUN pip download torch==1.10.1
 RUN pip install torch*.whl 
 RUN pip install torchvision==0.11.2
+RUN pip install dvc[gs]
+RUN pip install wandb
 
 # Install PyG.
 # RUN CPATH=/usr/local/cuda/include:$CPATH \
