@@ -32,7 +32,7 @@ COPY ./setup.py /.
 # Installs pip.
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python3 get-pip.py && \
-    pip install -r requirements-docker.txt --no-cache-dir && \
+    pip install -r requirements.txt --no-cache-dir && \
     #pip install setuptools && \
     rm get-pip.py
 
