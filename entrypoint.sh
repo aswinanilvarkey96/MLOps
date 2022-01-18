@@ -1,6 +1,6 @@
 #!/bin/sh
 echo 'wandb'
-wandb login $YOUR_API_KEY
+wandb login $SECRET_KEY
 echo 'dvc pull'
 dvc pull
 echo 'dvc pull done'

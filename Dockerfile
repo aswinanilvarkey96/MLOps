@@ -82,7 +82,7 @@ COPY .git/ /root/project/.git/
 
 ENV PYTHONPATH "${PYTHONPATH}:/root/project"
  
-ARG YOUR_API_KEY=local
-ENV YOUR_API_KEY ${YOUR_API_KEY}
+ARG SECRET_KEY
+ENV SECRET_KEY ${SECRET_KEY}
 # Sets up the entry point to invoke the trainer.
 ENTRYPOINT ["sh", "entrypoint.sh"]
